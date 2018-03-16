@@ -1,0 +1,74 @@
+﻿@model Enongzi.MeetingReport.Models.Subject
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Subject</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MeetingId" class="control-label"></label>
+
+                @{
+                    var Meetings = (List<SelectListItem>)ViewBag.Meetings;
+                }
+
+                <select asp-for="MeetingId" class="form-control" asp-items="@Meetings"></select>
+            </div>
+            <div class="form-group">
+                <label>讲师</label>
+                <select asp-for="TeacherId" class="form-control" asp-items="@ViewBag.Teachers"></select>
+            </div>
+            <div class="form-group">
+                <label>开始时间</label>
+                <input type="text" id="StartTime" name="StartTime" value="" />
+            </div>
+            <div class="form-group">
+                <label>结束时间</label>
+                <input type="text" id="EndTime" name="EndTime" value="" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/lib/layui/layui.js"></script>
+    <script>
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#StartTime', //指定元素
+                type:'datetime'
+            });
+            laydate.render({
+                elem: '#EndTime', //指定元素
+                type: 'datetime'
+            });
+        })
+
+    </script>
+}

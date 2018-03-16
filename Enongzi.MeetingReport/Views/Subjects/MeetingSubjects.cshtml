@@ -1,0 +1,50 @@
+﻿@model List<Subject>
+@{
+    ViewData["Title"] = "MeetingSubjects";
+}
+
+<h2>当前会议：@ViewBag.Meeting.Name</h2>
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                议题名称
+            </th>
+            <th>
+                讲课时间
+            </th>
+            <th>
+                讲师
+            </th>
+            <th>
+                操作
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @item.StartTime.ToString("MM月dd日 hh:mm:ss") 到 @item.EndTime.ToString("MM月dd日 hh:mm:ss")
+                </td>
+                <td>
+                    @item.Teacher.Name
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
